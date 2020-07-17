@@ -28,10 +28,40 @@ Given a human genome version [hg19|hg18] returns the list of all protein coding 
 
 Parameters:
 
-    *-g* : human genome version [hg19|hg18]
-    *-o* : output folder
+    -g : human genome version [hg19|hg18]
+    -o : output folder
 
 Example:
 ```
 Rscript R-scripts/List_of_ENSEMBL_protein_coding_genes.R -o Results_dir -g hg19
+```
+
+
+### Format conversion
+
+1. Convert tab-delimited file to RData and viceversa
+
+Requires:
+
+  - data.table (CRAN)
+
+Script to convert an RData table into a text file, or a text-file (table) into an RData object.
+
+Parameters:
+
+    -f : (--from) input file extension
+    -t : (--to) output file extension
+    -i : (--input_file) input file
+    -o : (--out_folder) output folder
+    -r : (--rownames) Indicates wheter the output text table should have rownames [0|1] [Default: 0]
+    -l : (--colnames) Indicates wheter the output text table should have colnames [0|1] [Default: 0]
+    -e : (--extension) Extension for the output text table [Default: tab]
+    
+Example:
+```
+## From Table to RData
+Rscript R-scripts/RData_Tab_converter.R -i TFBSs_hg19.RData -from RData -to tab -o hg19_TFBS -e bed
+
+## From RData to table
+Rscript R-scripts/RData_Tab_converter.R -i TFBSs_Unibind_EZ_hg19.bed -from tab -to RData -o hg19_TFBS
 ```
