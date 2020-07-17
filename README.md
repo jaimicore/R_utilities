@@ -16,9 +16,7 @@ Make sure you have installed:
 * All scripts use *optparse* R package, be sure you have it installed.
 
 
-### Extract genes
-
-1. Get all the protein coding genes annotations in human genome from ENSEMBL
+### Extract human protein-coding genes annotations from ENSEMBL
 
 Requires:
 
@@ -37,9 +35,7 @@ Rscript R-scripts/List_of_ENSEMBL_protein_coding_genes.R -o Results_dir -g hg19
 ```
 
 
-### Format conversion
-
-1. Convert tab-delimited file to RData and viceversa
+### Convert tab-delimited file to RData and viceversa
 
 Requires:
 
