@@ -28,10 +28,10 @@ Given a human genome version [hg19|hg18] returns the list of all protein coding 
 
 Parameters:
 
-    - *-g* : human genome version [hg19|hg18]
-    - *-o* : output folder
+    *-g* : human genome version [hg19|hg18]
+    *-o* : output folder
 
 Example:
 ```
-R-scripts/List_of_ENSEMBL_protein_coding_genes.R -o Results_dir -g hg19
+Rscript R-scripts/List_of_ENSEMBL_protein_coding_genes.R -o Results_dir -g hg19
 ```
