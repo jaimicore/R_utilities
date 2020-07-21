@@ -63,33 +63,6 @@ new.ids.col         <- as.numeric(opt$new_ids)
 id.prefix           <- opt$id_prefix
 
 
-## Example VCF
-# results.dir <- "/run/user/280010/gvfs/sftp:host=biotin3.hpc.uio.no,user=jamondra/storage/scratch/TCGA/ICGC/Mutations_TFBSs/mutations_in_tfbss/TEST"
-# template.tab.file <- "/run/user/280010/gvfs/sftp:host=biotin3.hpc.uio.no,user=jamondra/storage/scratch/TCGA/ICGC/Mutations_TFBSs/mutations_in_tfbss/TEST/Cohort1_WGS.vcf"
-# max.distance <- 10
-# min.distance <- 1
-# insert.side <- "both"
-# new.ids.col <- 5
-# input.format <- "vcf"
-# id.prefix <- "Sample"
-# Example columns: chromosome, position, ref, alt, sample
-# Rscript Generate_random_WGS_bed.R -o VCF_example -t Cohort1_WGS.vcf -f vcf -s both -m 15 -n 2 -i 5 -p DONOR
-
-
-## Example BED
-# results.dir <- "/run/user/280010/gvfs/sftp:host=biotin3.hpc.uio.no,user=jamondra/storage/scratch/TCGA/ICGC/Mutations_TFBSs/mutations_in_tfbss/TEST"
-# template.tab.file <- "/run/user/280010/gvfs/sftp:host=biotin3.hpc.uio.no,user=jamondra/storage/scratch/TCGA/ICGC/Mutations_TFBSs/mutations_in_tfbss/TEST/TFBSs_Unibind_EZ_hg19.bed.merge"
-# max.distance <- 10
-# min.distance <- 1
-# insert.side <- "both"
-# new.ids.col <- 0
-# input.format <- "bed"
-# id.prefix <- "Sample"
-# Example columns: chromosome, start, end, element
-# Rscript Generate_random_WGS_bed.R -o VCF_example -t Cohort1_WGS.vcf -f vcf -s both -m 15 -n 2 -i 5 -p DONOR
-
-
-
 #########################
 ## Mandatory variables ##
 #########################
