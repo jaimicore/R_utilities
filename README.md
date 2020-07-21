@@ -16,6 +16,9 @@ Make sure you have installed:
 * All scripts use *optparse* R package, be sure you have it installed.
 
 
+_____
+
+
 ### Extract human protein-coding genes annotations from ENSEMBL
 
 Requires:
@@ -33,6 +36,9 @@ Example:
 ```
 Rscript R-scripts/List_of_ENSEMBL_protein_coding_genes.R -o Results_dir -g hg19
 ```
+
+
+_____
 
 
 ### Convert tab-delimited file to RData and viceversa
@@ -62,6 +68,8 @@ Rscript R-scripts/RData_Tab_converter.R -i TFBSs_hg19.RData -from RData -to tab 
 Rscript R-scripts/RData_Tab_converter.R -i TFBSs_Unibind_EZ_hg19.bed -from tab -to RData -o hg19_TFBS
 ```
 
+
+_____
 
 
 ### Generate random coordinates from a VCF or BED file
@@ -125,3 +133,8 @@ Rscript R-scripts/Generate_random_coordinates.R -o VCF_example -t Coordinates.vc
 **VCF example**: the new coordinates will be generated within a window of 2 to 10 nucleotides from the original coordinates.
 Note that the new coordinates will not overlap the original ones. 
 In addition, the 5th column contains the IDs, and will be replaced using the prefix 'DONOR', e.g., DONOR001.
+
+
+_____
+
+
