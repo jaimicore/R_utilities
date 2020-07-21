@@ -1,6 +1,6 @@
 # R_utilities #
 
-Last version: 17-07-2020
+Last version: 21-07-2020
 
 This repository contains scripts to make repetitive task that can be recycled across multiple projects.
 Although many scripts are related to genomics (the field in which I work) others may be used for non-genomic-related purposes. 
@@ -20,7 +20,7 @@ Make sure you have installed:
 
 Requires:
 
-  - biomaRt (Biocondcutor package)
+  - biomaRt (Biocondcutor)
 
 Given a human genome version [hg19|hg18] returns the list of all protein coding genes, with their IDs and genomic coordinates.
 
@@ -69,7 +69,7 @@ Rscript R-scripts/RData_Tab_converter.R -i TFBSs_Unibind_EZ_hg19.bed -from tab -
 Requires:
 
   - data.table (CRAN)
-  - GenomicRanges (Biocinductor)
+  - GenomicRanges (Bioconductor)
 
 Script to generate random mutations from a BED/VCF template file. 
 The random mutations are generated from a uniform distribution, determined from a min and max distance relative to the original position.
@@ -122,6 +122,6 @@ Rscript R-scripts/Generate_random_coordinates.R -o VCF_example -t Coordinates.vc
 
 **BED example**: the new coordinates will be generated within a window of 2 to 15 nucleotides from the original coordinates.
 
-**VCF example**: the neww coordinates will be generated within a window of 2 to 10 nucleotides from the original coordinates.
+**VCF example**: the new coordinates will be generated within a window of 2 to 10 nucleotides from the original coordinates.
 Note that the new coordinates will not overlap the original ones. 
 In addition, the 5th column contains the IDs, and will be replaced using the prefix 'DONOR', e.g., DONOR001.
