@@ -17,7 +17,6 @@ Make sure you have installed:
 
 
 _____
-_____
 
 
 ### Extract human protein-coding genes annotations from ENSEMBL
@@ -39,7 +38,6 @@ Rscript R-scripts/List_of_ENSEMBL_protein_coding_genes.R -o Results_dir -g hg19
 ```
 
 
-_____
 _____
 
 
@@ -71,7 +69,6 @@ Rscript R-scripts/RData_Tab_converter.R -i TFBSs_Unibind_EZ_hg19.bed -from tab -
 ```
 
 
-_____
 _____
 
 
@@ -123,7 +120,7 @@ Parameters:
 
 
 Example:
-```
+```unix
 ## BED file
 Rscript R-scripts/Generate_random_coordinates.R -o BED_example -t Coordinates.bed -f bed -s both -m 15 -n 2
 
@@ -139,6 +136,55 @@ In addition, the 5th column contains the IDs, and will be replaced using the pre
 
 
 _____
+
+
+### Retrieve motif information from JASPAR 2020
+
+Requires:
+
+  - data.table (CRAN)
+  - dplyr (CRAN)
+  - jsonlite (CRAN)  
+  - purrr (CRAN)  
+
+
+This scripts connects to an API to retrieve information (TF name, Class, Family, 
+References) of all motifs in (JASPAR 2020)[http://jaspar.genereg.net/] from a given
+taxon and returns a tab-delimited table with this information.
+
+Taxa available:
+
+  - Vertebrates
+  - Plants
+  - Fungi
+  - Insects
+  - Nematodes
+  - Urochordata
+
+Parameters:
+
+    -o : (--output_directory) Output folder
+    -t : (--taxon) Taxon available in Jaspar
+
+
+Example:
+```unix
+Rscript R-scripts/Retrieve_matrix_information_from_JASPAR2020.R -o Jaspar_table -t Vertebrates
+```
+
+This script returns a tab-delimited table named *Jaspar_2020_info_{taxon}_table.tab*
+wit the following fields:
+
+  - name (TF name)
+  - matrix_id (motif ID in JASPAR)
+  - class (TF class)
+  - family (TF family)
+  - tax_group (Taxon)
+  - species
+  - tax_id
+  - type (Data type where this motif was found. E.g., ChIP-seq, SELEX, PBM)
+  - uniprot_ids
+  - pubmed_ids (Reference to supporting evidence)
+
+
 _____
-
-
