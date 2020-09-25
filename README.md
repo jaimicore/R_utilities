@@ -109,14 +109,14 @@ chr1    15627   15645   TFBS
 
 Parameters:
 
-    -o : (--output_directory) Output folder
-    -t : (--template) Input BED/VCF file
-    -f : (--format) Input file extension [BED|VCF]
-    -s : (--side) The side where the new random positions will be generated [left|right|both] relative to the original position
-    -m : (--max_distance) The maximum number of nucleotides from the original positions where the new random positions will be generated [Default: 10]
-    -n : (--min_distance) The minimum number of nucleotides from the original positions where the new random positions will be generated [Default: 1]
-    -i : (--new_ids) Column number containing the IDs. When this option is > 0, it will generate new IDs with random numbers. [Default: 0]
-    -p : (--id_prefix) Prefix for the new IDs. the new IDs will contain the prefix followed by a random number. E.g. Sample001 [Default: Sample]
+    -o : (--output_directory)   Output folder
+    -t : (--template)           Input BED/VCF file
+    -f : (--format)             Input file extension [BED|VCF]
+    -s : (--side)               The side where the new random positions will be generated [left|right|both] relative to the original position
+    -m : (--max_distance)       The maximum number of nucleotides from the original positions where the new random positions will be generated [Default: 10]
+    -n : (--min_distance)       The minimum number of nucleotides from the original positions where the new random positions will be generated [Default: 1]
+    -i : (--new_ids)            Column number containing the IDs. When this option is > 0, it will generate new IDs with random numbers. [Default: 0]
+    -p : (--id_prefix)          Prefix for the new IDs. the new IDs will contain the prefix followed by a random number. E.g. Sample001 [Default: Sample]
 
 
 Example:
@@ -163,8 +163,8 @@ Taxa available:
 
 Parameters:
 
-    -o : (--output_directory) Output folder
-    -t : (--taxon) Taxon available in Jaspar
+    -o : (--output_directory)  Output folder
+    -t : (--taxon)             Taxon available in Jaspar
 
 
 Example:
@@ -215,12 +215,12 @@ Requires:
 
 Parameters:
 
-    -g : (--geneset_name) Name of the gene list. [Default: input_list]
-    -l : (--gene_list) A text file with Entrez gene symbols, one per line, NO header (Mandatory)
-    -n : (--N_most_enriched_terms) Top N most enriched terms to display in the barplots. [Default: 20]
-    -o : (--output_directory) output folder (Mandatory)
-    -p : (--Pvalue_enrichment) P-value to select relevant terms. [Default: 0.001"] 
-    -t : (--title) Suffix for output files. [Default: enrichR_analysis]
+    -g : (--geneset_name)           Name of the gene list. [Default: input_list]
+    -l : (--gene_list)              A text file with Entrez gene symbols, one per line, NO header (Mandatory)
+    -n : (--N_most_enriched_terms)  Top N most enriched terms to display in the barplots. [Default: 20]
+    -o : (--output_directory)       Output folder (Mandatory)
+    -p : (--Pvalue_enrichment)      P-value to select relevant terms. [Default: 0.001"] 
+    -t : (--title)                  Suffix for output files. [Default: enrichR_analysis]
 
 
 Example:
