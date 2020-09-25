@@ -29,8 +29,8 @@ Given a human genome version [hg19|hg18] returns the list of all protein coding 
 
 Parameters:
 
-    -g : human genome version [hg19|hg18]
-    -o : output folder
+    -g : Human genome version [hg19|hg18]
+    -o : Output folder
 
 Example:
 ```
@@ -51,13 +51,13 @@ Script to convert an RData table into a text file, or a text-file (table) into a
 
 Parameters:
 
-    -f : (--from) input file extension
-    -t : (--to) output file extension
-    -i : (--input_file) input file
-    -o : (--out_folder) output folder
-    -r : (--rownames) Indicates wheter the output text table should have rownames [0|1] [Default: 0]
-    -l : (--colnames) Indicates wheter the output text table should have colnames [0|1] [Default: 0]
-    -e : (--extension) Extension for the output text table [Default: tab]
+    -f : (--from)           Input file extension
+    -t : (--to)             Output file extension
+    -i : (--input_file)     Input file
+    -o : (--out_folder)     Output folder
+    -r : (--rownames)       Indicates wheter the output text table should have rownames [0|1] [Default: 0]
+    -l : (--colnames)       Indicates wheter the output text table should have colnames [0|1] [Default: 0]
+    -e : (--extension)      Extension for the output text table [Default: tab]
     
 Example:
 ```
