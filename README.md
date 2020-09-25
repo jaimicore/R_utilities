@@ -34,7 +34,9 @@ Parameters:
 
 Example:
 ```
-Rscript R-scripts/List_of_ENSEMBL_protein_coding_genes.R -o Results_dir -g hg19
+Rscript R-scripts/List_of_ENSEMBL_protein_coding_genes.R \
+  -o Results_dir                                         \
+  -g hg19
 ```
 
 
@@ -62,10 +64,19 @@ Parameters:
 Example:
 ```
 ## From Table to RData
-Rscript R-scripts/RData_Tab_converter.R -i TFBSs_hg19.RData -from RData -to tab -o hg19_TFBS -e bed
+Rscript R-scripts/RData_Tab_converter.R \
+  -i TFBSs_hg19.RData                   \
+  -from RData                           \
+  -to tab                               \
+  -o hg19_TFBS                          \
+  -e bed
 
 ## From RData to table
-Rscript R-scripts/RData_Tab_converter.R -i TFBSs_Unibind_EZ_hg19.bed -from tab -to RData -o hg19_TFBS
+Rscript R-scripts/RData_Tab_converter.R \
+  -i TFBSs_Unibind_EZ_hg19.bed          \
+  -from tab                             \
+  -to RData                             \
+  -o hg19_TFBS
 ```
 
 
@@ -122,10 +133,24 @@ Parameters:
 Example:
 ```unix
 ## BED file
-Rscript R-scripts/Generate_random_coordinates.R -o BED_example -t Coordinates.bed -f bed -s both -m 15 -n 2
+Rscript R-scripts/Generate_random_coordinates.R \
+  -o BED_example                                \
+  -t Coordinates.bed                            \
+  -f bed                                        \
+  -s both                                       \
+  -m 15                                         \
+  -n 2
 
 ## VCF file
-Rscript R-scripts/Generate_random_coordinates.R -o VCF_example -t Coordinates.vcf -f vcf -s both -m 10 -n 2 -i 5 -p DONOR
+Rscript R-scripts/Generate_random_coordinates.R \
+  -o VCF_example                                \
+  -t Coordinates.vcf                            \
+  -f vcf                                        \
+  -s both                                       \
+  -m 10                                         \
+  -n 2                                          \
+  -i 5                                          \
+  -p DONOR
 ```
 
 **BED example**: the new coordinates will be generated within a window of 2 to 15 nucleotides from the original coordinates.
@@ -169,7 +194,9 @@ Parameters:
 
 Example:
 ```unix
-Rscript R-scripts/Retrieve_matrix_information_from_JASPAR2020.R -o Jaspar_table -t Vertebrates
+Rscript R-scripts/Retrieve_matrix_information_from_JASPAR2020.R   \
+  -o Jaspar_table                                                 \
+  -t Vertebrates
 ```
 
 This script returns a tab-delimited table named *Jaspar_2020_info_{taxon}_table.tab*
