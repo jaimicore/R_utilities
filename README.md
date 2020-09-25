@@ -1,6 +1,6 @@
 # R_utilities #
 
-Last version: 21-07-2020
+Last version: 25-09-2020
 
 This repository contains scripts to make repetitive task that can be recycled across multiple projects.
 Although many scripts are related to genomics (the field in which I work) others may be used for non-genomic-related purposes. 
@@ -149,7 +149,7 @@ Requires:
 
 
 This scripts connects to an API to retrieve information (TF name, Class, Family, 
-References) of all motifs in (JASPAR 2020)[http://jaspar.genereg.net/] from a given
+References) of all motifs in [JASPAR 2020](http://jaspar.genereg.net/) from a given
 taxon and returns a tab-delimited table with this information.
 
 Taxa available:
@@ -198,7 +198,7 @@ with a set of databases. In this script we use the following databases: *KEGG_20
 *WikiPathways_2019_Human*, *Panther_2016*, and *GO_Biological_Process_2018*. In 
 case you want to use other databases, this should be changed in the code.
 
-The complete list of databases is on the (*enrichR* website)[https://maayanlab.cloud/Enrichr/#stats].
+The complete list of databases is on the [*enrichR* website](https://maayanlab.cloud/Enrichr/#stats).
 
 
 Requires:
