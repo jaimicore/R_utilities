@@ -188,3 +188,56 @@ wit the following fields:
 
 
 _____
+
+
+
+### Gene Set Enrichment Analysis with enrichR
+
+Given a gene list, calls *enrichR* and launch a functional enrichment analysis 
+with a set of databases. In this script we use the following databases: *KEGG_2019_Human*,
+*WikiPathways_2019_Human*, *Panther_2016*, and *GO_Biological_Process_2018*. In 
+case you want to use other databases, this should be changed in the code.
+
+The complete list of databases is on the (*enrichR* website)[https://maayanlab.cloud/Enrichr/#stats].
+
+
+Requires:
+
+  - data.table
+  - dplyr
+  - DT
+  - enrichR
+  - ggplot2
+  - ggrepel
+  - htmlwidgets
+  - plotly   
+
+
+Parameters:
+
+    -g : (--geneset_name) Name of the gene list. [Default: input_list]
+    -l : (--gene_list) A text file with Entrez gene symbols, one per line, NO header (Mandatory)
+    -n : (--N_most_enriched_terms) Top N most enriched terms to display in the barplots. [Default: 20]
+    -o : (--output_directory) output folder (Mandatory)
+    -p : (--Pvalue_enrichment) P-value to select relevant terms. [Default: 0.001"] 
+    -t : (--title) Suffix for output files. [Default: enrichR_analysis]
+
+
+Example:
+```unix
+Rscript R-scripts/GSEA_enrichR.R           \
+  -l examples/data/dysregulated_genes.txt  \
+  -o examples/results/enrichR_results      \
+  -g diff_expr_genes                       \
+  -n 20                                    \
+  -p 0.001                                 \
+  -t enrichR_example
+```
+
+This script returns:
+
+  - A table for each database ranked by the significance (-log10(Pvalue))
+  - Barplots with the N most significant terms above the threshold P-value
+  - Plots with terms ranked by significance
+
+___
