@@ -4,7 +4,8 @@
 required.libraries <- c("BSgenome",
                         "doParallel",
                         "dplyr",
-                        "foreach")
+                        "foreach",
+                        "optparse")
 
 for (lib in required.libraries) {
   if (!require(lib, character.only = TRUE)) {
