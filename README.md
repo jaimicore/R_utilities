@@ -234,7 +234,6 @@ Requires:
 
   - data.table
   - dplyr
-  - DT
   - enrichR
   - ggplot2
   - ggrepel
@@ -267,7 +266,7 @@ This script returns:
 
   - A table for each database ranked by the significance (-log10(Pvalue))
   - Barplots with the N most significant terms above the threshold P-value
-  - Plots with terms ranked by significance
+  - Plots (static and interactive) with terms ranked by significance. [Example](https://jaimicore.github.io/Doc/Rankplot_terms_Example_enrichR_GO_Biological_Process_2018.html)
 
 ___
 
@@ -283,6 +282,9 @@ of contiguous *{A,C,G,T}*s. Each chromosome is analyzed independently, taking
 advantage of the parallelization libraries.
 
 We strongly recommend to run this script in a cluster.
+
+For the moment, it only accepts *hg19* and *hg38*, and the chromosomes 1-22, X, Y, and M,
+but the code is very easy to expand to include other genomes supported by [BSgenome](https://bioconductor.org/packages/release/bioc/html/BSgenome.html).
 
 
 Requires:
