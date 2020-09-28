@@ -305,7 +305,7 @@ Example:
 Rscript R-scripts/NonAmbiguous_nucleotides.R   \
   -o .                                         \
   -g hg38                                      \
-  -c 5
+  -c 25
 ```
 
 This script returns a BED-like table with the following columns:
