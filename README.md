@@ -7,6 +7,8 @@ Although many scripts are related to genomics (the field in which I work) others
 
 I will be adding the scripts once they are documented and tested.
 
+Any question, contact me: j.a.c.mondragon@ncmm.uio.no
+
 
 ## Installation
 
@@ -267,4 +269,57 @@ This script returns:
   - Barplots with the N most significant terms above the threshold P-value
   - Plots with terms ranked by significance
 
+___
+
+
+### Genomic fragments without ambiguous 'N' nucleotides.
+
+Given a genome (e.g., hg19, hg38) returns a BED-like file with the fragments without
+ambiguous nucleotides 'N', it means, only contiguous fragments with A, C, G, T.
+
+In a nutshell, for each chromosome this script get the positions of the *N* and 
+*{A,C,G,T}*, then calls the R base function *findInterval* to return the intervals
+of contiguous *{A,C,G,T}*s. Each chromosome is analyzed independently, taking 
+advantage of the parallelization libraries.
+
+We strongly recommend to run this script in a cluster.
+
+
+Requires:
+
+  - BSgenome   (Bioconductor)
+  - doParallel
+  - dplyr
+  - foreach
+
+
+Parameters:
+
+    -g : (--genome_version)     Genome version. [Default: hg38]
+    -c : (--cores)              Number of cores to parallelize the process. [Default: 3]
+    -o : (--output_directory)   Output directory to export the results (Mandatory)
+
+
+Example:
+```unix
+Rscript R-scripts/NonAmbiguous_nucleotides.R   \
+  -o .                                         \
+  -g hg38                                      \
+  -c 5
+```
+
+This script returns a BED-like table with the following columns:
+
+  - Chromosome
+  - Start
+  - End
+  - Segment width
+  - Fraction of the segment with respect to the total number of non-ambiguous nucleotides in the entire chromosome
+
+```unix
+Chr   Start   End     Width   Percent
+chr1  10001   207666  197665  0.0008576195
+chr1  257667  297968  40301   0.0001748561
+chr1  347969  535988  188019  0.0008157679
+```
 ___
