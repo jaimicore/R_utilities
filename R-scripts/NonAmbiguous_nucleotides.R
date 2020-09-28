@@ -21,12 +21,12 @@ for (lib in required.libraries) {
 option_list = list(
   
   make_option(c("-o", "--output_directory"), type = "character", default = NULL, 
-              help = "Output directory to export the tables (Mandatory)", metavar = "character"),
+              help = "Output directory to export the results (Mandatory)", metavar = "character"),
   
   make_option(c("-g", "--genome_version"), type = "character", default = "hg38", 
               help = "Human genome version. [hg38|hg19 : Default \"%default\"] ", metavar = "character"),
   
-  make_option(c("-c", "--cores"), type = "int", default = 3, 
+  make_option(c("-c", "--cores"), type = "numeric", default = 3, 
               help = "Number of cores to paralellize. [Default \"%default\"] ", metavar = "number")
 );
 opt_parser = OptionParser(option_list = option_list);
@@ -72,6 +72,14 @@ find.non.ambiguous.regions <- function(Seqname = "Chr1",
 }
 
 
+########################
+## Set variable names ##
+########################
+results.dir    <- opt$output_directory
+genome.version <- opt$genome_version
+ncores         <- opt$cores
+
+
 #########################
 ## Mandatory variables ##
 #########################
@@ -79,14 +87,6 @@ if (!exists("results.dir")) {
   stop("Missing mandatory argument: results.dir ")
   
 }
-
-
-########################
-## Set variable names ##
-########################
-results.dir    <- opt$output_directory
-genome.version <- opt$genome_version
-ncores         <- opt$cores
 
 ## Debug
 # genome.version <- "hg38"
