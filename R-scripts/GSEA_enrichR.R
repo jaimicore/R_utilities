@@ -59,7 +59,7 @@ enrich.pval    <- as.numeric(opt$Pvalue_enrichment)
 ## Example
 # top.n          <- 20
 # gene.list.file <- "../examples/data/dysregulated_genes.txt"
-# results.dir    <- "../examples/results/enrichR_results"
+# results.dir    <- "/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/R_utilities/examples/results/enrichR_results"
 # enrich.pval    <- 0.001
 # geneset.name   <- "Example_enrichR"
 
@@ -165,6 +165,17 @@ for (db in unique(enrichr.tab$DB)) {
     ggtitle(paste0(db, " terms enrichment in ", geneset.name))
   
   GSEA.enrich.rank.plots[[db]][[geneset.name]] <- enrichment.rank.plot
+  
+  #############################
+  ## Export interactive plot ##
+  #############################
+  enrichment.rank.plotly <- ggplotly(enrichment.rank.plot,
+                                     tooltip = c("Ranks", "Significance", "Nb_genes", "Term")) %>%
+                              config(displaylogo = FALSE,
+                                     displayModeBar = FALSE)
+  htmlwidgets::saveWidget(widget = enrichment.rank.plotly,
+                          file = file.path(out.folders[["plots"]], paste0("Rankplot_terms_", geneset.name, "_", db, ".html")))
+
   
   ## Add labels
   enrichment.rank.plot <- enrichment.rank.plot +
