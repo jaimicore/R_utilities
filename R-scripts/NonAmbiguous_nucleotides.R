@@ -100,12 +100,20 @@ if (genome.version == "hg38") {
   
 } else if (genome.version == "hg19") {
   gv <- "BSgenome.Hsapiens.UCSC.hg19"
-
+  
 } else {
   stop("; Human genome version non recognized. Options: hg19, hg38")
 }
 ## Load the selected genome
 library(gv, character.only = T)
+
+
+if (genome.version == "hg38") {
+  genome.biostring <- BSgenome.Hsapiens.UCSC.hg38
+  
+} else if (genome.version == "hg19") {
+  genome.biostring <- BSgenome.Hsapiens.UCSC.hg19
+}
 
 
 ## Install the selected genome
@@ -127,11 +135,11 @@ chromosomes <- paste0("chr", c(1:22, "X", "Y", "M"))
 registerDoParallel(ncores)
 non.abiguous.regions.df <- NULL
 non.abiguous.regions.df <- foreach(i = seq_along(chromosomes), .combine = rbind) %dopar% {
-
+  
   chr <- chromosomes[i]
   message("; Processing chromosome ", chr)
   
-  chrom.seq <- as.character(BSgenome.Hsapiens.UCSC.hg38[[chr]])
+  chrom.seq <- as.character(genome.biostring[[chr]])
   
   find.non.ambiguous.regions(Seqname = chr, DNAseq  = chrom.seq)
   
