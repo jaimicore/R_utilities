@@ -148,4 +148,4 @@ non.abiguous.regions.df <- foreach(i = seq_along(chromosomes), .combine = rbind)
 
 ## Export table with non-ambiguous regions
 non.abiguous.regions.df.file <- file.path(results.dir, paste0("Non_ambiguous_regions_", genome.version,".bed"))
-write.table(non.abiguous.regions.df, file = non.abiguous.regions.df.file, quote = F, row.names = F, col.names = T)
+write.table(non.abiguous.regions.df, file = non.abiguous.regions.df.file, quote = F, row.names = F, col.names = T, sep = "\t")
