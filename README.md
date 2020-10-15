@@ -325,3 +325,48 @@ chr1  257667  297968  40301   0.0001748561
 chr1  347969  535988  188019  0.0008157679
 ```
 ___
+
+
+### Motif friseur
+
+A small script to trim Transcription Factor Position Frequency Matrix
+
+Supported motif formats:
+
+  - jaspar
+  
+Other motifs formats will be added upon request or if they are required.
+
+
+Requires:
+
+  - universalmotif  (Bioconductor)
+
+
+Parameters:
+
+    -m : (--input_motif)       Path to input motif file. (Mandatory)
+    -n : (--format)            Input motif format. (Mandatory)
+    -o : (--output_directory)  Output directory to export the trimmed motifs. If not indicated, the trimmed motifs are exported in the same folder with the extension *.trimmed*
+    -b : (--both)              Trim *b* nucleotides in both sides 
+    
+    -l : (--left)              Trim *l* nucleotides in left side
+    -r : (--right)             Trim *r* nucleotides in right side
+    
+    -f : (--from)              Keep nucleotides starting from *f* position 
+    -t : (--to)                Keep nucleotides until *t* position 
+    
+
+Example:
+```unix
+Rscript R-scripts/Motif_Friseur.R   \
+  -m examples/data/ZNF506.jaspar    \
+  -n jaspar                         \
+  -o examples/results/Motif_friseur \
+  -f 4                               \
+  -t 12
+```
+
+Trimming the ZNF506 motif from [JASPAR](http://jaspar.genereg.net/matrix/UN0198.1/),
+the trimmed motif contains the columns 4 to 12.
+
