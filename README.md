@@ -1,6 +1,6 @@
 # R_utilities #
 
-Last version: 25-09-2020
+Last version: 15-10-2020
 
 This repository contains scripts to make repetitive task that can be recycled across multiple projects.
 Although many scripts are related to genomics (the field in which I work) others may be used for non-genomic-related purposes. 
@@ -348,6 +348,7 @@ Parameters:
     -m : (--input_motif)       Path to input motif file. (Mandatory)
     -n : (--format)            Input motif format. (Mandatory)
     -o : (--output_directory)  Output directory to export the trimmed motifs. If not indicated, the trimmed motifs are exported in the same folder with the extension *.trimmed*
+    
     -b : (--both)              Trim *b* nucleotides in both sides 
     
     -l : (--left)              Trim *l* nucleotides in left side
@@ -363,7 +364,7 @@ Rscript R-scripts/Motif_Friseur.R   \
   -m examples/data/ZNF506.jaspar    \
   -n jaspar                         \
   -o examples/results/Motif_friseur \
-  -f 4                               \
+  -f 4                              \
   -t 12
 ```
 
