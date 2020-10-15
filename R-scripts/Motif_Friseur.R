@@ -150,10 +150,12 @@ if (!tolower(motif.format) %in% supported.formats) {
 #####################################
 ## Read motif according its format ##
 #####################################
-
+message("; Reading input motif file: ", motif.file)
 if (motif.format == "jaspar") {
   
-  motif.pfm <- read_jaspar(motif.file)
+  motif.pfm  <- read_jaspar(motif.file)
+  motif.id   <-  motif.pfm["name"]
+  motif.name <-  motif.pfm["altname"]
 
 }
 
@@ -167,6 +169,9 @@ motif.size <- ncol(motif.pfm["motif"])
 
 if (is.null(out.dir)) {
   out.dir <- dirname(motif.file)
+} else {
+  dir.create(out.dir, showWarnings = F, recursive = T)
+  message("; Output file: ", out.dir)
 }
 
 
@@ -207,17 +212,25 @@ trim_motif_friseur <- function(m = NULL,
 }
 
 
-trimmed.motif <- trim_motif_friseur(m = motif.pfm, from, to)
-
+## Trim the input motif + Rename it
+trimmed.motif            <- trim_motif_friseur(m = motif.pfm, from, to)
+trimmed.motif            <- convert_type(trimmed.motif, "PCM")
+trimmed.motif["name"]    <- motif.id 
+trimmed.motif["altname"] <- motif.name
 
 
 ####################################################
 ## Write trimmed motif according its input format ##
 ####################################################
-
 new.motif.file <- file.path(out.dir, paste0(basename(motif.file), ".trimmed"))
+message("; Exporting trimmed motif: ", new.motif.file)
 
 if (motif.format == "jaspar") {
+  
+  if (file.exists(new.motif.file)) {
+    file.remove(new.motif.file)
+  }
+  
   write_jaspar(motifs = trimmed.motif, file = new.motif.file)
 }
 
