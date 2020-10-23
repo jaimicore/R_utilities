@@ -61,6 +61,10 @@ vector<double> DistanceStrings(stringList s1, stringList s2)
   int size1 = s1.size();
   int size2 = s2.size();
   
+  if (size1 != size2) {
+    std::cerr << "The number of elements in the arguments differ.\n";
+  }
+  
   
   // This works //
   // NumericVector string_split(stringList s1, stringList s2)
