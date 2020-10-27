@@ -101,7 +101,6 @@ new.targets.list <- foreach(i = 1:nb.rand.net) %dopar% {
   ## The universe of target genes (many of them are repeated because are target of many genes)
   ## We keep this number to maintain exactly the same number of each target in the random network
   all.targets <- net$Target
-  new.targets <- NULL
   
   ## Iterate over each Gene in the network
   no.dup.tx.flag <- 0
@@ -136,7 +135,15 @@ new.targets.list <- foreach(i = 1:nb.rand.net) %dopar% {
 }
 
 
+
 new.targets.df <- lapply(lapply(new.targets.list, lapply, data.frame), purrr::map_dfr, data.table)
+
+lapply(new.targets.df, function(l){
+  data.frame(Gene   = net$Gene,
+             Target = l,
+             Weight = sample(net$Weight))
+})
+
 
 
 # colnames(new.targets.df) <- "Target"
