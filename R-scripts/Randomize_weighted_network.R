@@ -33,7 +33,7 @@ option_list = list(
               help = "Number of random networks. [Default \"%default\"] ", metavar = "number"), 
   
   make_option(c("-c", "--cores"), type = "numeric", default = 2, 
-              help = "Number of cores to parallelize. [Default \"%default\"] ", metavar = "number"), 
+              help = "Number of cores to parallelize. [Default \"%default\"] ", metavar = "number")
   
   );
 message("; Reading arguments from command line")
