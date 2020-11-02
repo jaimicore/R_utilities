@@ -49,13 +49,17 @@ net.file    <- opt$network_file
 nb.rand.net <- as.numeric(opt$random_networks)
 nb.cores    <- as.numeric(opt$cores)
 
+## Number of cores must be at most the number of generated random networks
+nb.cores <- ifelse(nb.cores > nb.rand.net, yes = nb.rand.net, no = nb.cores)
+
 
 ###########
 ## Debug ##
 ###########
-net.file <- "/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/R_utilities/examples/data/Weighted_net_example.txt"
-nb.rand.net <- 2
-nb.cores <- 3
+# results.dir <- "/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/R_utilities/Test1/Rand_net"
+# net.file <- "/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/R_utilities/examples/data/Weighted_net_example.txt"
+# nb.rand.net <- 2
+# nb.cores <- 2
 
 
 #########################
@@ -68,7 +72,9 @@ if (!exists("results.dir")) {
   stop("Missing mandatory argument: net.file ")
   
 }
-dir.create(file.path(results.dir, "Random_networks"), showWarnings = F, recursive = T)
+
+rand.net.dir <- file.path(results.dir, "Random_networks")
+dir.create(rand.net.dir, showWarnings = F, recursive = T)
 
 
 #######################
@@ -89,57 +95,80 @@ colnames(net)[2] <- "Target"
 
 ## Network represented as a list, where each element corresponds to
 ## a dataframe of the 'Gene' columns
+net <- net %>% 
+      group_by(Gene) %>% 
+      mutate(Nb_target = n()) %>% 
+      arrange(desc(Nb_target)) %>% 
+      select(Gene, Target, Weight)
+
+# net <- net[1:10000]
 net.list  <- split(net, f = net$Gene)
 
 ## Sort the networks by decreasing size
-# gen.net.size.order <- order(unlist(lapply(net.list, nrow)), decreasing = T)
-# net.list           <- net.list[gen.net.size.order]
+gen.net.size.order <- order(unlist(lapply(net.list, nrow)), decreasing = T)
+net.list           <- net.list[gen.net.size.order]
+
+# net.list <- net.list[c(1:50, 17000:17200)]
+# a <- map_dfr(net.list, data.table)
+# all.targets <- as.vector(a$Target)
+
+
+## The universe of target genes (many of them are repeated because are target of many genes)
+## We keep this number to maintain exactly the same number of each target in the random network
+all.targets <- as.vector(net$Target)
+
 
 registerDoParallel(nb.cores)
+new.targets.list <- NULL
 new.targets.list <- foreach(i = 1:nb.rand.net) %dopar% {
+# new.targets.list <- foreach(i = 1:2) %dopar% {
   
-  ## The universe of target genes (many of them are repeated because are target of many genes)
-  ## We keep this number to maintain exactly the same number of each target in the random network
-  all.targets <- net$Target
-  new.targets <- NULL
+  lapply(net.list, function(l){
+    
+    message("; Number of targets to reallocate: ", length(all.targets))
+    
+    ## Network size/Number of targets
+    nb.entries <- nrow(l)
+    
+    ## Shuffle the names on each iteration
+    all.targets <<- sample(all.targets)
+    
+    ## Get a new set of non-duplicated target genes
+    new.genes <- unique(all.targets)[1:nb.entries]
+    
+    
+    new.genes.ind <- match(new.genes, all.targets) 
+    # sss <- sort(all.targets)
+    # print(sss, collapse=",")
+    all.targets  <<- all.targets[-new.genes.ind]
+    
+    new.genes
+    return(new.genes)
+  })
   
-  ## Iterate over each Gene in the network
-  no.dup.tx.flag <- 0
-  while (!no.dup.tx.flag) {
-    
-    new.targets <- lapply(net.list, function(l){
-      
-      message("; Number of targets to reallocate: ", length(all.targets))
-      
-      ## Network size/Number of targets
-      nb.entries <- nrow(l)
-      
-      ## Shuffle the names on each iteration
-      all.targets <<- sample(all.targets)
-      
-      ## Get a new set of non-duplicated target genes
-      new.genes <- unique(all.targets)[1:nb.entries]
-      
-      
-      new.genes.ind <- match(new.genes, all.targets)
-      all.targets <<- all.targets[-new.genes.ind]
-      
-      new.genes
-    })
-    
-    dup.sum <- sum(unlist(lapply(lapply(new.targets, duplicated), sum)))
-    
-    message("; Duplicated entries in the new random network: ", dup.sum)
-    no.dup.tx.flag <- ifelse(dup.sum == 0, yes = 1, no = 0)
-  }
-  new.targets
+
 }
 
-
+## Convert the list of list into a dataframe
 new.targets.df <- lapply(lapply(new.targets.list, lapply, data.frame), purrr::map_dfr, data.table)
 
+rand.net.df <- lapply(new.targets.df, function(l){
+    data.table(Gene   = net$Gene,
+           Target = l,
+           Weight = sample(net$Weight))
+})
 
-# colnames(new.targets.df) <- "Target"
-# 
-# new.targets.df <- purrr::map(new.targets.list, data.frame)
+
+## Export the networks as text files
+it <- 0
+lapply(rand.net.df, function(l){
+  
+  colnames(l) <- c("Gene", "Target", "Weight")
+  
+  it <<- it + 1
+  
+  rand.net.file <- file.path(rand.net.dir, paste0("Random_network_", it, ".tab"))
+  fwrite(l, file = rand.net.file, sep = "\t", row.names = F, col.names = T)
+})
+
 
