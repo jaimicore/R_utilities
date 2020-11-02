@@ -371,3 +371,53 @@ Rscript R-scripts/Motif_Friseur.R   \
 Trimming the ZNF506 motif from [JASPAR](http://jaspar.genereg.net/matrix/UN0198.1/),
 the trimmed motif contains the columns 4 to 12.
 
+
+
+___
+
+
+### Generate randomized (weighted) networks
+
+
+
+Requires:
+
+  - data.table   
+  - doParallel
+  - dplyr
+  - foreach
+  - purrr
+
+Parameters:
+
+    -n : (--network_file)       Network file. (Mandatory)
+    -c : (--cores)              Number of cores to parallelize the process. [Default: 2]
+    -o : (--output_directory)   Output directory to export the results (Mandatory)
+    -r : (random_networks)      Number of random networks. [Default: 10]
+
+
+Example:
+```unix
+Rscript R-scripts/Randomize_weighted_network.R  \
+  -n examples/data/Weighted_net_example.txt     \
+  -o examples/results/Random_networks           \
+  -r 10                                         \
+  -c 10
+```
+
+
+This script returns a BED-like table with the following columns:
+
+  - Chromosome
+  - Start
+  - End
+  - Segment width
+  - Fraction of the segment with respect to the total number of non-ambiguous nucleotides in the entire chromosome
+
+```unix
+Chr   Start   End     Width   Percent
+chr1  10001   207666  197665  0.0008576195
+chr1  257667  297968  40301   0.0001748561
+chr1  347969  535988  188019  0.0008157679
+```
+___
