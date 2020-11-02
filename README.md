@@ -378,7 +378,13 @@ ___
 
 ### Generate randomized (weighted) networks
 
+Given an input weighted network, generates *X* randomized copies of the network,
+we preserve the number of times each target gene appears in the input network.
 
+In other words, if a gene (e.g., *TP53*) is regulated by 15 genes in the input
+netwtork, each of the randomized networks will contain *TP53* regulated by 15 
+different genes, this is important to preserve the connectivity of the input network
+but we *may lost* the biological relevance of the connections.
 
 Requires:
 
@@ -387,6 +393,19 @@ Requires:
   - dplyr
   - foreach
   - purrr
+
+
+Example of input file:
+
+```unix
+Gene  Target  Weight
+EP300	GNA15	  0.678
+EP300	PIK3CG	0.899
+EP300	EPO	    0.882
+SRY	  AP1G2	  0.663
+GATA3	NR5A1	  0.505
+GATA3	CENPH	  0.63
+```
 
 Parameters:
 
@@ -406,18 +425,8 @@ Rscript R-scripts/Randomize_weighted_network.R  \
 ```
 
 
-This script returns a BED-like table with the following columns:
+This script returns *r* tab files containing randomized versions of the input
+network, same structure as the input network file (see above).
 
-  - Chromosome
-  - Start
-  - End
-  - Segment width
-  - Fraction of the segment with respect to the total number of non-ambiguous nucleotides in the entire chromosome
 
-```unix
-Chr   Start   End     Width   Percent
-chr1  10001   207666  197665  0.0008576195
-chr1  257667  297968  40301   0.0001748561
-chr1  347969  535988  188019  0.0008157679
-```
 ___
