@@ -80,6 +80,7 @@ dir.create(rand.net.dir, showWarnings = F, recursive = T)
 #######################
 ## Read network file ##
 #######################
+message("; Reading network file")
 net <- fread(net.file)
 
 ## Check if the network contains weights or not
@@ -95,22 +96,18 @@ colnames(net)[2] <- "Target"
 
 ## Network represented as a list, where each element corresponds to
 ## a dataframe of the 'Gene' columns
+message("; Sorting network by descending number of targets")
 net <- net %>% 
       group_by(Gene) %>% 
       mutate(Nb_target = n()) %>% 
       arrange(desc(Nb_target)) %>% 
       select(Gene, Target, Weight)
 
-# net <- net[1:10000]
 net.list  <- split(net, f = net$Gene)
 
 ## Sort the networks by decreasing size
 gen.net.size.order <- order(unlist(lapply(net.list, nrow)), decreasing = T)
 net.list           <- net.list[gen.net.size.order]
-
-# net.list <- net.list[c(1:50, 17000:17200)]
-# a <- map_dfr(net.list, data.table)
-# all.targets <- as.vector(a$Target)
 
 
 ## The universe of target genes (many of them are repeated because are target of many genes)
@@ -120,21 +117,11 @@ all.targets <- as.vector(net$Target)
 
 registerDoParallel(nb.cores)
 new.targets.list <- NULL
+message("; Generating random networks")
 new.targets.list <- foreach(i = 1:nb.rand.net) %dopar% {
-# new.targets.list <- foreach(i = 1:2) %dopar% {
-  
-<<<<<<< HEAD
+
   lapply(net.list, function(l){
-=======
-  ## The universe of target genes (many of them are repeated because are target of many genes)
-  ## We keep this number to maintain exactly the same number of each target in the random network
-  all.targets <- net$Target
-  
-  ## Iterate over each Gene in the network
-  no.dup.tx.flag <- 0
-  while (!no.dup.tx.flag) {
->>>>>>> d2b4a53316d2f3c4f60285e3d0a0b35d124d4df0
-    
+
     message("; Number of targets to reallocate: ", length(all.targets))
     
     ## Network size/Number of targets
@@ -146,20 +133,15 @@ new.targets.list <- foreach(i = 1:nb.rand.net) %dopar% {
     ## Get a new set of non-duplicated target genes
     new.genes <- unique(all.targets)[1:nb.entries]
     
-    
+    ## Update the targets' vector
     new.genes.ind <- match(new.genes, all.targets) 
-    # sss <- sort(all.targets)
-    # print(sss, collapse=",")
     all.targets  <<- all.targets[-new.genes.ind]
     
     new.genes
-    return(new.genes)
   })
-  
-
 }
 
-<<<<<<< HEAD
+
 ## Convert the list of list into a dataframe
 new.targets.df <- lapply(lapply(new.targets.list, lapply, data.frame), purrr::map_dfr, data.table)
 
@@ -179,19 +161,6 @@ lapply(rand.net.df, function(l){
   it <<- it + 1
   
   rand.net.file <- file.path(rand.net.dir, paste0("Random_network_", it, ".tab"))
+  message("; Exporting random network as text file: ", rand.net.file)
   fwrite(l, file = rand.net.file, sep = "\t", row.names = F, col.names = T)
 })
-=======
-
-new.targets.df <- lapply(lapply(new.targets.list, lapply, data.frame), purrr::map_dfr, data.table)
-
-lapply(new.targets.df, function(l){
-  data.frame(Gene   = net$Gene,
-             Target = l,
-             Weight = sample(net$Weight))
-})
-
-
->>>>>>> d2b4a53316d2f3c4f60285e3d0a0b35d124d4df0
-
-
