@@ -77,6 +77,35 @@ rand.net.dir <- file.path(results.dir, "Random_networks")
 dir.create(rand.net.dir, showWarnings = F, recursive = T)
 
 
+
+####################################
+## Generate network (xseq format) ##
+####################################
+## Convert a data.frame network (Gene, Target, Weight) in a list of lists.
+## Each sub-list is named as the Gene and their content correspond to their targets
+## and the value of association (Weight).
+df.net.to.xseq <- function(network){
+  
+  ## Rename columns
+  colnames(network) <- c("Gene", "Target_gene", "Assoc_score")
+  
+  ##
+  net.list <- split(network, f = network$Gene)
+  
+  xseq.net <- lapply(net.list, function(l){
+    
+    scores <- l$Assoc_score
+    names(scores) <- l$Target_gene
+    
+    l <- scores
+    
+  })
+  
+  return(xseq.net)
+  
+}
+
+
 #######################
 ## Read network file ##
 #######################
@@ -160,6 +189,18 @@ lapply(rand.net.df, function(l){
   
   it <<- it + 1
   
+  
+  #####################################
+  ## Export networks as Rdata object ##
+  #####################################
+  rand.net.list <- df.net.to.xseq(l)
+  rand.net.rds <- file.path(rand.net.dir, paste0("Random_network_", it, ".rds"))
+  message("; Exporting random network as Rdata object: ", rand.net.rds)
+  saveRDS(rand.net.list, file = rand.net.rds)
+  
+  #################################
+  ## Export network as text file ##
+  #################################
   rand.net.file <- file.path(rand.net.dir, paste0("Random_network_", it, ".tab"))
   message("; Exporting random network as text file: ", rand.net.file)
   fwrite(l, file = rand.net.file, sep = "\t", row.names = F, col.names = T)
