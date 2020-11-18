@@ -60,11 +60,11 @@ nb.cores <- ifelse(nb.cores > nb.rand.net, yes = nb.rand.net, no = nb.cores)
 ###########
 ## Debug ##
 ###########
-results.dir <- "/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/R_utilities/Test1/Rand_net"
-net.file <- "/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/R_utilities/examples/data/Weighted_net_example.txt"
-nb.rand.net <- 1
-nb.cores <- 1
-suffix.net.name <- "testing_suffix"
+# results.dir <- "/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/R_utilities/Test1/Rand_net"
+# net.file <- "/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/R_utilities/examples/data/Weighted_net_example.txt"
+# nb.rand.net <- 1
+# nb.cores <- 1
+# suffix.net.name <- "testing_suffix"
 
 
 #########################
