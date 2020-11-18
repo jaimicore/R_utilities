@@ -33,7 +33,10 @@ option_list = list(
               help = "Number of random networks. [Default \"%default\"] ", metavar = "number"), 
   
   make_option(c("-c", "--cores"), type = "numeric", default = 2, 
-              help = "Number of cores to parallelize. [Default \"%default\"] ", metavar = "number")
+              help = "Number of cores to parallelize. [Default \"%default\"] ", metavar = "number"),
+  
+  make_option(c("-s", "--suffix"), type = "character", default = NULL, 
+              help = "Suffix name for the random network file. [Default \"%default\"]. By default the output files follow this format: Random_network_{it}.tab, where {it} correspond to the number of random network. When the suffix option is indicated, change {it} will take the suffix value. Note that the suffix is applied to all file, so this option is recommendended when only one random net work is generated.", metavar = "character")
   
   );
 message("; Reading arguments from command line")
@@ -44,10 +47,11 @@ opt = parse_args(opt_parser);
 ########################
 ## Set variable names ##
 ########################
-results.dir <- opt$output_directory
-net.file    <- opt$network_file
-nb.rand.net <- as.numeric(opt$random_networks)
-nb.cores    <- as.numeric(opt$cores)
+results.dir     <- opt$output_directory
+net.file        <- opt$network_file
+nb.rand.net     <- as.numeric(opt$random_networks)
+nb.cores        <- as.numeric(opt$cores)
+suffix.net.name <- opt$suffix
 
 ## Number of cores must be at most the number of generated random networks
 nb.cores <- ifelse(nb.cores > nb.rand.net, yes = nb.rand.net, no = nb.cores)
@@ -56,10 +60,11 @@ nb.cores <- ifelse(nb.cores > nb.rand.net, yes = nb.rand.net, no = nb.cores)
 ###########
 ## Debug ##
 ###########
-# results.dir <- "/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/R_utilities/Test1/Rand_net"
-# net.file <- "/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/R_utilities/examples/data/Weighted_net_example.txt"
-# nb.rand.net <- 2
-# nb.cores <- 2
+results.dir <- "/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/R_utilities/Test1/Rand_net"
+net.file <- "/home/jamondra/Documents/PostDoc/Mathelier_lab/Projects/R_utilities/examples/data/Weighted_net_example.txt"
+nb.rand.net <- 1
+nb.cores <- 1
+suffix.net.name <- "testing_suffix"
 
 
 #########################
@@ -187,7 +192,14 @@ lapply(rand.net.df, function(l){
   
   colnames(l) <- c("Gene", "Target", "Weight")
   
-  it <<- it + 1
+  
+  ## Rename the iteration number in the output file, only when the --suffix option
+  ## is indicated by the user
+  if (!is.null(suffix.net.name)) {
+    it <<- suffix.net.name
+  } else {
+    it <<- it + 1
+  }
   
   
   #####################################
