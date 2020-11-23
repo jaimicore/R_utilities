@@ -44,7 +44,6 @@ opt = parse_args(opt_parser);
 ########################
 ## Set variable names ##
 ########################
-message("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 results.dir    <- opt$output_directory
 input.tab.file <- opt$input_table
 header.flag    <- tolower(opt$header)
@@ -111,8 +110,10 @@ if (!is.null(columns)) {
   columns.flag <- 1
   
   ## When the value is 0, all columns will be shuffled
-  if (columns == 0) {
-    columns <- 1:ncol(input.tab)
+  if (length(columns) == 1) {
+    if (columns == 0) {
+      columns <- 1:ncol(input.tab)
+    } 
   }
 }
 
@@ -124,8 +125,10 @@ if (!is.null(rows)) {
   rows.flag <- 1
   
   ## When the value is 0, all rows will be shuffled
-  if (rows == 0) {
-    rows <- 1:nrow(input.tab)
+  if (length(rows) == 1) {
+    if (rows == 0) {
+      rows <- 1:nrow(input.tab)
+    } 
   }
 }
 
