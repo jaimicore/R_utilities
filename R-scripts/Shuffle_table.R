@@ -159,4 +159,4 @@ if (rows.flag) {
 output.tab <- data.table(input.tab)
 output.tab.file <- file.path(results.dir, paste0(prefix, "_", basename(input.tab.file)))
 message("; Reading input table: ", output.tab.file)
-fwrite(output.tab, sep = "\t", row.names = F, col.names = header.flag)
+fwrite(output.tab, file = output.tab.file, sep = "\t", row.names = F, col.names = header.flag)
