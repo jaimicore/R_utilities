@@ -430,3 +430,37 @@ network, same structure as the input network file (see above).
 
 
 ___
+
+
+### Shuffle table columns and/or rows 
+
+Given an input table file, shuffle the indicated column(s) and/or row(s).
+
+Requires:
+
+  - data.table
+
+
+Parameters:
+
+    -c : (--columns)            Indicates the columns to shuffle. Example: -c 1,2. If this value is 0, shuffle all columns, if this is not indicated, none column is shuffled.
+    -r : (--rows)               Indicates the rows to shuffle. Example: -c 1,2. If this value is 0, shuffle all rows, if this is not indicated, none row is shuffled.
+    -h : (--header)             Indicates wheter the input table has a header [Y | N]. [Default: Y]
+    -o : (--output_directory)   Output directory to export the results (Mandatory)
+    -i : (--input_table)        Input table
+    -p : (--prefix)             A prefix added to the output file name. [Default: Shuffled]
+
+
+Example:
+```unix
+Rscript R-scripts/Shuffle_table.R   \
+  -i examples/data/TFBSs.bed        \
+  -o examples/results/Shuffle_table \
+  -p Shuffled_coordinates           \
+  -c 1,4,5
+```
+
+
+This script returns a table with the shuffled columns/rows.
+
+___
