@@ -1,6 +1,6 @@
 # R_utilities #
 
-Last version: 15-10-2020
+Last version: 23-11-2020
 
 This repository contains scripts to make repetitive task that can be recycled across multiple projects.
 Although many scripts are related to genomics (the field in which I work) others may be used for non-genomic-related purposes. 
