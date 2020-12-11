@@ -1,6 +1,6 @@
 # R_utilities #
 
-Last version: 23-11-2020
+Last version: 11-12-2020
 
 This repository contains scripts to make repetitive task that can be recycled across multiple projects.
 Although many scripts are related to genomics (the field in which I work) others may be used for non-genomic-related purposes. 
@@ -386,6 +386,10 @@ netwtork, each of the randomized networks will contain *TP53* regulated by 15
 different genes, this is important to preserve the connectivity of the input network
 but we *may lost* the biological relevance of the connections.
 
+When the option *--exlcusive* is indicated, the original targets will not be assigned
+as new random targets. Note that in many cases, a gene can be targeted by most of the
+genes in the network, in this cases, this condition is no applied.
+
 Requires:
 
   - data.table   
@@ -400,9 +404,9 @@ Example of input file:
 ```unix
 Gene  Target  Weight
 EP300	GNA15	  0.678
-EP300	PIK3CG	0.899
-EP300	EPO	    0.882
-SRY	  AP1G2	  0.663
+EP300	PIK3CG	  0.899
+EP300	EPO	  0.882
+SRY	AP1G2	  0.663
 GATA3	NR5A1	  0.505
 GATA3	CENPH	  0.63
 ```
@@ -413,6 +417,7 @@ Parameters:
     -c : (--cores)              Number of cores to parallelize the process. [Default: 2]
     -o : (--output_directory)   Output directory to export the results (Mandatory)
     -r : (random_networks)      Number of random networks. [Default: 10]
+    -e : (exclusive)       	Indicates whether the original targets should not be included in the new random targets. [Default: False] Note that this is not applicable always.
 
 
 Example:
@@ -420,8 +425,8 @@ Example:
 Rscript R-scripts/Randomize_weighted_network.R  \
   -n examples/data/Weighted_net_example.txt     \
   -o examples/results/Random_networks           \
-  -r 10                                         \
-  -c 10
+  -r 1                                         \
+  -c 1
 ```
 
 
