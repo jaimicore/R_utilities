@@ -402,7 +402,7 @@ Requires:
 Example of input file:
 
 ```unix
-Gene  Target  Weight
+Gene    Target    Weight
 EP300	GNA15	  0.678
 EP300	PIK3CG	  0.899
 EP300	EPO	  0.882
@@ -413,11 +413,11 @@ GATA3	CENPH	  0.63
 
 Parameters:
 
-    -n : (--network_file)       Network file. (Mandatory)
-    -c : (--cores)              Number of cores to parallelize the process. [Default: 2]
-    -o : (--output_directory)   Output directory to export the results (Mandatory)
-    -r : (random_networks)      Number of random networks. [Default: 10]
-    -e : (exclusive)       	Indicates whether the original targets should not be included in the new random targets. [Default: False] Note that this is not applicable always.
+    -n : (--network_file)	Network file. (Mandatory)
+    -c : (--cores)		Number of cores to parallelize the process. [Default: 2]
+    -o : (--output_directory)	Output directory to export the results (Mandatory)
+    -r : (--random_networks)	Number of random networks. [Default: 10]
+    -e : (--exclusive)		Indicates whether the original targets should not be included in the new random targets. [Default: False] Note that this is not applicable always.
 
 
 Example:
