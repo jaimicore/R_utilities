@@ -415,8 +415,8 @@ Parameters:
 
     -n : (--network_file)	Network file. (Mandatory)
     -c : (--cores)		Number of cores to parallelize the process. [Default: 2]
-    -o : (--output_directory)	Output directory to export the results (Mandatory)
-    -r : (--random_networks)	Number of random networks. [Default: 10]
+    -o : (--output_directory)		Output directory to export the results (Mandatory)
+    -r : (--random_networks)		Number of random networks. [Default: 10]
     -e : (--exclusive)		Indicates whether the original targets should not be included in the new random targets. [Default: False] Note that this is not applicable always.
 
 
