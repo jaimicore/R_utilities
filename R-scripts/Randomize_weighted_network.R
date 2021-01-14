@@ -29,9 +29,6 @@ option_list = list(
   make_option(c("-n", "--network_file"), type = "character", default = "NULL", 
               help = "(Mandatory input file) File containing the network, must include at least 2 columns: 1) Gene, 2) Target, and optionally 3) Weight ", metavar = "character"),  
   
-  make_option(c("-r", "--random_networks"), type = "numeric", default = 10, 
-              help = "Number of random networks. [Default \"%default\"] ", metavar = "number"), 
-  
   make_option(c("-c", "--cores"), type = "numeric", default = 2, 
               help = "Number of cores to parallelize. [Default \"%default\"] ", metavar = "number"),
   
