@@ -378,17 +378,17 @@ ___
 
 ### Generate randomized (weighted) networks
 
-Given an input weighted network, generates *X* randomized copies of the network,
-we preserve the number of times each target gene appears in the input network.
+Given an input weighted network, returns a randomized version without duplicated
+targets. We preserve the number of times each target gene appears in the input network.
 
 In other words, if a gene (e.g., *TP53*) is regulated by 15 genes in the input
-netwtork, each of the randomized networks will contain *TP53* regulated by 15 
-different genes, this is important to preserve the connectivity of the input network
-but we *may lost* the biological relevance of the connections.
+network, the resulting randomized network will contain *TP53* regulated by 15 
+distinct genes, this is important to preserve the original connectivity of the
+input network but we may lost the biological relevance of the connections.
 
 When the option *--exlcusive* is indicated, the original targets will not be assigned
-as new random targets. Note that in many cases, a gene can be targeted by most of the
-genes in the network, in this cases, this condition is no applied.
+as random targets. Note, however, that in many cases, a gene can be targeted by 
+most of the genes in the network, in these cases, this condition will not be applied.
 
 Requires:
 
@@ -416,7 +416,7 @@ Parameters:
     -n : (--network_file)	Network file. (Mandatory)
     -c : (--cores)		Number of cores to parallelize the process. [Default: 2]
     -o : (--output_directory)		Output directory to export the results (Mandatory)
-    -r : (--random_networks)		Number of random networks. [Default: 10]
+    -s : (--suffix)		Suffix added in the output file name. [Default: Random_network_1]
     -e : (--exclusive)		Indicates whether the original targets should not be included in the new random targets. [Default: False] Note that this is not applicable always.
 
 
@@ -425,7 +425,7 @@ Example:
 Rscript R-scripts/Randomize_weighted_network.R  \
   -n examples/data/Weighted_net_example.txt     \
   -o examples/results/Random_networks           \
-  -r 1                                         \
+  -s Xseq_random_net_1                                         \
   -c 1
 ```
 
