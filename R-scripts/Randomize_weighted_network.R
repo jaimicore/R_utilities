@@ -371,56 +371,63 @@ if (exclude.targets) {
   rand.net.realoc <- subset(rand.net.df, Realoc == 1)
   no.output <- sapply(1:nrow(rand.net.realoc), function(l){
     
-    message("; Targets to reallocate: ", sum(rand.net.df$Realoc == 1))
-    entry.from <- rand.net.realoc[l,]$ID     ## This is the target that will be sent (from)
+    to.realoc <- sum(rand.net.df$Realoc == 1)
+    message("; Targets to reallocate: ", to.realoc)
     
-    ## Check that the entry is not correctly reallocated
-    if (subset(rand.net.df, ID == entry.from)$Realoc) {
+    ## Run when is necessary to reallocate
+    if (to.realoc) {
+      entry.from <- rand.net.realoc[l,]$ID     ## This is the target that will be sent (from)
       
-      gg <- rand.net.realoc[l,]$Gene
-      tt <- rand.net.realoc[l,]$Target
-      
-      entry.exists <- subset(rand.net.df, Gene == gg & Target == tt)
-      
-      if (nrow(entry.exists)) {
+      ## Check that the entry is not correctly reallocated
+      if (subset(rand.net.df, ID == entry.from)$Realoc) {
         
-        ## Find the available positions
-        available.entries <- find.new.gene.target(net.df = rand.net.df,
-                                                  gene   = gg,
-                                                  target = tt,
-                                                  no.dup = T,
-                                                  no.ori = T)
+        gg <- rand.net.realoc[l,]$Gene
+        tt <- rand.net.realoc[l,]$Target
         
-        if (nrow(available.entries)) {
+        entry.exists <- subset(rand.net.df, Gene == gg & Target == tt)
+        
+        if (nrow(entry.exists)) {
           
-          ## This is the target that will be received (to)
-          entry.to <- sample(available.entries$ID, 1)
+          ## Find the available positions
+          available.entries <- find.new.gene.target(net.df = rand.net.df,
+                                                    gene   = gg,
+                                                    target = tt,
+                                                    no.dup = T,
+                                                    no.ori = T)
           
-          ## Exchange targets
-          ## tt == rand.net.df$Target[which(rand.net.df$ID == entry.from)]
-          new.tt <- rand.net.df$Target[which(rand.net.df$ID == entry.to)]
-          
-          if (tt == new.tt) {
-            stop("; Target and new target are the same")
+          if (nrow(available.entries)) {
+            
+            ## This is the target that will be received (to)
+            entry.to <- sample(available.entries$ID, 1)
+            
+            ## Exchange targets
+            ## tt == rand.net.df$Target[which(rand.net.df$ID == entry.from)]
+            new.tt <- rand.net.df$Target[which(rand.net.df$ID == entry.to)]
+            
+            if (tt == new.tt) {
+              stop("; Target and new target are the same")
+            }
+            
+            rand.net.df$Target[which(rand.net.df$ID == entry.to)]   <<- tt
+            rand.net.df$Target[which(rand.net.df$ID == entry.from)] <<- new.tt
+            
+            rand.net.df$Realoc[which(rand.net.df$ID == entry.to)]   <<- 0
+            rand.net.df$Realoc[which(rand.net.df$ID == entry.from)] <<- 0
+            
+            ## In case there are no available entries to exchange targets
+          } else {
+            message("; Entry: ", entry.from, " has no available entries to exchange")
+            NULL
           }
-          
-          rand.net.df$Target[which(rand.net.df$ID == entry.to)]   <<- tt
-          rand.net.df$Target[which(rand.net.df$ID == entry.from)] <<- new.tt
-          
-          rand.net.df$Realoc[which(rand.net.df$ID == entry.to)]   <<- 0
-          rand.net.df$Realoc[which(rand.net.df$ID == entry.from)] <<- 0
-          
-          ## In case there are no available entries to exchange targets
-        } else {
-          message("; Entry: ", entry.from, " has no available entries to exchange")
-          NULL
         }
+        
+        ## In case the entry is already reallocated
+      } else {
+        message("; This entry is already correctly reallocated")
+        NULL
       }
-      
-      ## In case the entry is already reallocated
     } else {
-      message("; This entry is already correctly reallocated")
-      NULL
+      message("; No need for target reallocation")
     }
   })
 }
