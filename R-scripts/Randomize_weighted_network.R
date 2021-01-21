@@ -165,6 +165,7 @@ if (!exists("results.dir")) {
 }
 
 rand.net.dir <- file.path(results.dir, "Random_networks")
+#rand.net.dir <- file.path(results.dir)
 dir.create(rand.net.dir, showWarnings = F, recursive = T)
 
 
@@ -449,9 +450,9 @@ if (!is.null(suffix.net.name)) {
 ## Export networks as Rdata object ##
 #####################################
 rand.net.list <- df.net.to.xseq(rand.net.df)
-rand.net.rds <- file.path(rand.net.dir, paste0("Random_network_", it, ".rds"))
+rand.net.rds <- file.path(rand.net.dir, paste0("Random_network_", it, ".Rdata"))
 message("; Exporting random network as Rdata object: ", rand.net.rds)
-saveRDS(rand.net.list, file = rand.net.rds)
+save(rand.net.list, file = rand.net.rds)
 
 #################################
 ## Export network as text file ##
