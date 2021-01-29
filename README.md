@@ -469,3 +469,49 @@ Rscript R-scripts/Shuffle_table.R   \
 This script returns a table with the shuffled columns/rows.
 
 ___
+
+
+### Group UniBind datasets given a keyword
+
+Concatenates all [*UniBind*](https://unibind.uio.no/) datasets associated to a given keyword (e.g., lung, cancer, ESC). Returns a BED file with all the associated TFBSs. 
+
+First, download the complete UniBind results (given the genome and collection),
+if this file exist in the output directory, then this step is skipped. Note that
+downloading the results make take several minutes, this depends on your internet
+collection.
+
+The keyword is searched on the column *title* in the UniBind metadata table.
+
+Please contact the UniBind developers to have access to the metadata information: r.r.puig AT ncmm.uio.no
+
+Requires:
+
+  - data.table
+  - dplyr
+  - purrr
+  
+
+Parameters:
+
+    -w : (--word)               Keyword used to return dataset containing such word in their description (Mandatory)
+    -g : (--genome)             Available genomes in UniBind: human.
+    -c : (--collection)         Dataset quality: robust | permissive. [Default: Robust]
+    -o : (--output_directory)   Output directory to export the results (Mandatory)
+    -a : (--annotation_table)   UniBind metadata table (Mandatory)
+    -p : (--prefix)             A prefix added to the output file name. [Default: Shuffled]
+
+
+Example:
+```unix
+Rscript R-scripts/Shuffle_table.R   \
+  -i examples/data/TFBSs.bed        \
+  -o examples/results/Shuffle_table \
+  -p Shuffled_coordinates           \
+  -c 1,4,5
+```
+
+Output:
+
+This script returns BED file containing the datasets that matched the keyword in
+their description.
+___
