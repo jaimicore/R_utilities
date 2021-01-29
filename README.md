@@ -484,6 +484,9 @@ The keyword is searched on the column *title* in the UniBind metadata table.
 
 Please contact the UniBind developers to have access to the metadata information: r.r.puig AT ncmm.uio.no
 
+Currently this scripts support only one genome (human), however, UniBind has data
+of 9 species, the remaining ones will be added soon.
+
 Requires:
 
   - data.table
@@ -512,6 +515,6 @@ Rscript R-scripts/Shuffle_table.R   \
 
 Output:
 
-This script returns BED file containing the datasets that matched the keyword in
+This script returns a BED file containing the datasets that matched the keyword in
 their description.
 ___
