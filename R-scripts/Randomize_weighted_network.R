@@ -51,7 +51,7 @@ opt = parse_args(opt_parser);
 results.dir      <- opt$output_directory
 net.file         <- opt$network_file
 random.mode      <- tolower(opt$mode)
-target.list.file <- tolower(opt$target_list)
+target.list.file <- opt$target_list
 suffix.net.name  <- opt$suffix
 
 
