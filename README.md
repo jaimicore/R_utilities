@@ -379,27 +379,30 @@ ___
 ### Generate randomized (weighted) networks
 
 Given an input weighted network, returns a randomized version without duplicated
-targets. We preserve the number of times each target gene appears in the input network.
+targets. The input network must have at least two columns: 1) Regulator and 2) Targets,
+optionally it may  contain a third column with Weights.
 
-In other words, if a gene (e.g., *TP53*) is regulated by 15 genes in the input
+Randomization approaches:
+
+  - *Simple*: the targets in the network are pooled and for each regulator we sample X targets, where X is the original number of targets.
+  - *List*: similar to the simple approach, but using an user-provided list of targets.
+  - *Shuffle*: re-distribute the original targets avoiding duplicated entries on each regulator. This approach preserves the number of times each target gene appears in the input network.
+
+
+In the *shuffle* mode, if a gene (e.g., *TP53*) is regulated by 15 genes in the input
 network, the resulting randomized network will contain *TP53* regulated by 15 
 distinct genes, this is important to preserve the original connectivity of the
 input network but we may lost the biological relevance of the connections.
 
-When the option *--exlcusive* is indicated, the original targets will not be assigned
-as random targets. Note, however, that in many cases, a gene can be targeted by 
-most of the genes in the network, in these cases, this condition will not be applied.
 
 Requires:
 
   - data.table   
-  - doParallel
   - dplyr
-  - foreach
   - purrr
 
 
-Example of input file:
+Example of input network file:
 
 ```unix
 Gene    Target    Weight
@@ -411,28 +414,58 @@ GATA3	NR5A1	  0.505
 GATA3	CENPH	  0.63
 ```
 
+
+Example of input target list file:
+
+```unix
+GNA15
+PIK3CG
+EPO
+AP1G2
+NR5A1
+CENPH
+```
+
 Parameters:
 
     -n : (--network_file)	Network file. (Mandatory)
-    -c : (--cores)		Number of cores to parallelize the process. [Default: 2]
     -o : (--output_directory)		Output directory to export the results (Mandatory)
     -s : (--suffix)		Suffix added in the output file name. [Default: Random_network_1]
-    -e : (--exclusive)		Indicates whether the original targets should not be included in the new random targets. [Default: False] Note that this is not applicable always.
+    -m : (--mode)		Indicates how the random network should be created. [Default: simple] [Options: simple, list, shuffle] 
+    -l : (--list)		A text file containing the names (a name per line, no header) of all the targets that will be sampled to create the random network.
 
 
 Example:
 ```unix
+
+## Simple mode
 Rscript R-scripts/Randomize_weighted_network.R  \
   -n examples/data/Weighted_net_example.txt     \
   -o examples/results/Random_networks           \
-  -s Xseq_random_net_1                                         \
-  -c 1
+  -s Xseq_random_net_1                          \
+  -m simple
+  
+  
+## List mode
+Rscript R-scripts/Randomize_weighted_network.R  \
+  -n examples/data/Weighted_net_example.txt     \
+  -o examples/results/Random_networks           \
+  -s Xseq_random_net_1                          \
+  -m list                                       \
+  -l examples/data/Target_list_example.txt 
+  
+  
+## Shuffle mode
+Rscript R-scripts/Randomize_weighted_network.R  \
+  -n examples/data/Weighted_net_example.txt     \
+  -o examples/results/Random_networks           \
+  -s Xseq_random_net_1                          \
+  -m shuffle
 ```
 
 
-This script returns *r* tab files containing randomized versions of the input
+This script returns a tab file containing a randomized version of the input
 network, same structure as the input network file (see above).
-
 
 ___
 
