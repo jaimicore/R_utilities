@@ -1,6 +1,6 @@
 # R_utilities #
 
-Last version: 11-12-2020
+Last version: 03-03-2021
 
 This repository contains scripts to make repetitive task that can be recycled across multiple projects.
 Although many scripts are related to genomics (the field in which I work) others may be used for non-genomic-related purposes. 
@@ -432,6 +432,7 @@ Parameters:
     -o : (--output_directory)		Output directory to export the results (Mandatory)
     -s : (--suffix)		Suffix added in the output file name. [Default: Random_network_1]
     -m : (--mode)		Indicates how the random network should be created. [Default: simple] [Options: simple, list, shuffle] 
+    -m : (--permute_weights)		Indicates if the weights should be permuted or no.. [Default: 0] [Options: 0 | 1] 
     -l : (--list)		A text file containing the names (a name per line, no header) of all the targets that will be sampled to create the random network.
 
 
