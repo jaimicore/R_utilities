@@ -406,7 +406,6 @@ if (nrow(rand.net.df) == nrow(net)) {
   if (permute.weights) {
     rand.net.df$Weight <- sample(net$Weight)
   }
-  rand.net.df$Weight <- sample(net$Weight)
   
 } else {
   rand.net.df <- NULL
