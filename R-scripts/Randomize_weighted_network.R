@@ -33,8 +33,8 @@ option_list = list(
   make_option(c("-m", "--mode"), type = "character", default = "simple", 
               help = "Indicates how the random network should be created. [Default \"%default\"] [Options: simple, list, shuffle] ", metavar = "characterr"),
   
-  # make_option(c("-m", "--mode"), type = "character", default = "simple", 
-  #             help = "Indicates how the random network should be created. [Default \"%default\"] [Options: simple, list, shuffle, simple_no_ori, list_no_ori, shuffle_no_dup, shuffle_no_dup_no_ori] ", metavar = "characterr"),
+  make_option(c("-w", "--permute_weights"), type = "numeric", default = 1,
+              help = "Indicates if the weights should be permuted or no. [Default \"%default\"] [Options: 0 | 1] ", metavar = "number"),
   
   make_option(c("-s", "--suffix"), type = "character", default = NULL, 
               help = "Suffix name for the random network file. [Default \"%default\"]. By default the output files follow this format: Random_network_{it}.tab, where {it} correspond to the number of random network. When the suffix option is indicated, change {it} will take the suffix value. Note that the suffix is applied to all file, so this option is recommendended when only one random net work is generated.", metavar = "character")
@@ -53,6 +53,7 @@ net.file         <- opt$network_file
 random.mode      <- tolower(opt$mode)
 target.list.file <- opt$target_list
 suffix.net.name  <- opt$suffix
+permute.weights  <- as.numeric(opt$permute_weights)
 
 
 ########################################################
@@ -396,10 +397,15 @@ if (random.mode %in% c("simple", "list")) {
 ## Add weight column ##
 #######################
 ##
-## We simply permute the original weights
+## We simply permute the original weights, if indicated by the user
 if (nrow(rand.net.df) == nrow(net)) {
   
-  ## Add the regulator column
+  rand.net.df$Weight <- net$Weight
+  
+  ## Only permute when it is indicated
+  if (permute.weights) {
+    rand.net.df$Weight <- sample(net$Weight)
+  }
   rand.net.df$Weight <- sample(net$Weight)
   
 } else {
