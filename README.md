@@ -165,7 +165,7 @@ In addition, the 5th column contains the IDs, and will be replaced using the pre
 _____
 
 
-### Retrieve motif information from JASPAR 2020
+### Retrieve motif information from JASPAR 2022
 
 Requires:
 
@@ -173,10 +173,11 @@ Requires:
   - dplyr (CRAN)
   - jsonlite (CRAN)  
   - purrr (CRAN)  
+  - tidyverse (CRAN)
 
 
 This scripts connects to an API to retrieve information (TF name, Class, Family, 
-References) of all motifs in [JASPAR 2020](http://jaspar.genereg.net/) from a given
+References) of all motifs in [JASPAR 2022](http://jaspar.genereg.net/) from a given
 taxon and returns a tab-delimited table with this information.
 
 Taxa available:
@@ -192,16 +193,19 @@ Parameters:
 
     -o : (--output_directory)  Output folder
     -t : (--taxon)             Taxon available in Jaspar
-
+    -c : (--collection)        Motif collection [CORE|UNVALIDATED] [Default:CORE]
+    -v : (--version)           Latest or all motif versions [nonredundant|redundant] [Default:nonredundant]
 
 Example:
 ```unix
-Rscript R-scripts/Retrieve_matrix_information_from_JASPAR2020.R   \
+Rscript R-scripts/Retrieve_matrix_information_from_JASPAR2022.R   \
   -o Jaspar_table                                                 \
-  -t Vertebrates
+  -t Vertebrates                                                  \
+  -c CORE                                                         \
+  -v nonredundant
 ```
 
-This script returns a tab-delimited table named *Jaspar_2020_info_{taxon}_table.tab*
+This script returns a tab-delimited table named *Jaspar_2022_metadata_{version}_{collection}_{taxon}_table.tab*
 wit the following fields:
 
   - name (TF name)
