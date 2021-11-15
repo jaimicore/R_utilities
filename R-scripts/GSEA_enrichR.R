@@ -101,10 +101,10 @@ gene.list.vector <- unique(as.vector(gene.list$Gene_names))
 ##################
 
 ## Databases
-dbs <- c("KEGG_2019_Human",
+dbs <- c("KEGG_2021_Human",
          "WikiPathways_2019_Human",
          "Panther_2016",
-         "GO_Biological_Process_2018")
+         "GO_Biological_Process_2021")
 
 ## Run enrichR function
 enrichr.tab.list <- enrichR::enrichr(genes = gene.list.vector,
