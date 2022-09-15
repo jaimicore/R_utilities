@@ -7,7 +7,7 @@ Although many scripts are related to genomics (the field in which I work) others
 
 I will be adding the scripts once they are documented and tested.
 
-Any question, contact me: j.a.c.mondragon@ncmm.uio.no
+Any question, contact me: jacmondragon@nykode.com
 
 
 ## Installation
